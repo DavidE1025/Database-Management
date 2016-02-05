@@ -1,0 +1,12 @@
+10 pts
+
+The first essay looks good, but the second one... I think you may have
+misunderstood what XML is for. It might be worthwile for you to look at it
+sometime later.
+
+The evidence of postgres installation is ok.
+I take it you like dogs? :)
+
+- Dr. Rivas
+
+
