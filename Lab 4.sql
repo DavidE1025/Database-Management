@@ -29,12 +29,12 @@ WHERE cid IN (SELECT cid
 			    WHERE aid != 'a01'));
 --4. Get the ids of customers who ordered both product p01 and p07
 SELECT cid
-FROM customers
-WHERE cid IN (SELECT cid
-	      FROM orders 
-	      WHERE pid IN (SELECT pid
-			    FROM products
-			    WHERE pid = 'p01' AND pid = 'p07')); 
+FROM orders
+WHERE pid = 'p01'
+INTERSECT
+SELECT cid
+FROM orders
+WHERE pid = 'p07';
 --5. Get the ids of products not ordered by any customers who placed any order through agent a07 in pid order from highest to lowest 
 SELECT pid
 FROM products
@@ -63,4 +63,4 @@ WHERE discount IN (SELECT discount
 -- A good use of a check constraint is for a name field. 
 -- The constraint would prevent a user from putting in a number into the input field.
 -- Another constraint would prevent a user from leaving the name feild empty
--- If a feild is vital for a database or system using the database a check constraint should be used.
+-- If a feild is vital for a database or system using the database a check constraint should be used. 
