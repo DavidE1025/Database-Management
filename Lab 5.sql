@@ -39,7 +39,13 @@ SELECT c.name, a.name, c.city
 FROM customers c,agents a
 WHERE c.city = a.city;
 
---7.) Show the name of customers who live in the city thet makes the fewest different kinds of products.
+--7.) Show the name of customers who live in the city that makes the fewest different kinds of products.
+SELECT c.name
+FROM customers c
+JOIN orders o ON c.cid = o.cid
+JOIN products p ON p.pid = o.pid
+WHERE p.city = 'Duluth'
+LIMIT 2;
 
 SELECT *
 FROM customers;
