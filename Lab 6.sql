@@ -17,17 +17,29 @@ FROM products p
 WHERE p.priceUSD > (SELECT AVG(p.priceUSD) 
 		    FROM products p)
 ORDER BY p.name DESC;
+
 --3. Display the customer name, pid ordered, and the total for all orders, sorted by total from high to low.
-SELECT c.name, o.pid, SUM(o.qty) AS OrderTotal
-FROM customers c 
-LEFT JOIN orders o ON c.cid = o.cid
-GROUP BY OrderTotal
-ORDER BY o.qty DESC;
+SELECT c.name, o.pid, o.dollars
+FROM customers c
+JOIN orders o ON o.cid = c.cid
+ORDER BY o.dollars DESC; 
+
 --4. Display all customer names (in alphabetical order) and their total ordered, and nothing more. Use
 --coalesce to avoid showing NULLs.
-SELECT c.name, o.qty
+SELECT DISTINCT c.name, SUM(COALESCE(o.dollars, 0.00))
+FROM customers c
+LEFT JOIN orders o ON o.cid = c.cid
+GROUP BY c.name
+ORDER BY c.name ASC;
+
 --5. Display the names of all customers who bought products from agents based in Tokyo along with the
 --names of the products they ordered, and the names of the agents who sold it to them.
+SELECT c.name, p.name, a.name
+FROM customers c
+JOIN orders o ON o.cid = c.cid
+JOIN agents a ON o.aid = a.aid
+JOIN products p ON o.pid = p.pid
+WHERE a.city = 'Tokyo';
 
 --6. Write a query to check the accuracy of the dollars column in the Orders table. This means calculating
 --Orders.totalUSD from data in other tables and comparing those values to the values in Orders.totalUSD.
