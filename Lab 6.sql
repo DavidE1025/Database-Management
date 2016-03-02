@@ -5,11 +5,16 @@
 --1. Display the name and city of customers who live in any city that makes the most different kinds of 
 --products. (There are two cities that make the most different products. Return the name and city of
 --customers from either one of those.)
-SELECT c.name, c.city
+SELECT c.name , c.city 
 FROM customers c
-JOIN orders o ON c.cid = o.cid
-JOIN products p ON o.pid = p.pid
-WHERE 
+WHERE c.city IN (SELECT p.city
+	       FROM products p
+	       GROUP BY p.city
+	       HAVING COUNT(city) IN ( (SELECT MAX (Num) 
+					FROM (SELECT Count(p.city) AS Num 
+					      FROM products p 
+					      GROUP BY p.city) AS a ) )
+	       LIMIT 1);
 --2. Display the names of products whose priceUSD is strictly above the average priceUSD, in reverse alphabetical
 --order.
 SELECT p.name
@@ -52,3 +57,14 @@ FROM (SELECT o.*, o.qty*p.priceusd*(1-(discount/100)) AS truedollars
 WHERE dollars != truedollars;
 --7. What is the difference between a LEFT OUTER JOIN and a RIGHT OUTER JOIN? Give example
 --queries in SQL to demonstrate. (Feel free to use the CAP2 database to make your points here.)
+SELECT *
+FROM customers c
+LEFT JOIN orders o ON c.cid = o.cid;
+--This is an example of a Left outer joins. It selects everything from the customers table. 
+--The left join combines the the orders table and customers tables allowing for veiwing of all rows of both tables
+--Cid 'c005' has null values for anything in the orders table because there where no orders placed by this customer. 
+--If we did a right join this row would not appear because the join would validate with the order table versus the customers table.
+SELECT *
+FROM customers c
+RIGHT JOIN orders o ON c.cid = o.cid;
+--This right outer join is to demonstrate the row ith null values not appearing in this query. 
