@@ -1,0 +1,47 @@
+8 pts
+
+Correct output for some queries
+Mostly correct SQL statements
+SQL statements are somewhat readable
+
+Recommendations: 
+ To improve your readability, write queries instead of this
+  SELECT *
+  FROM products
+  WHERE priceusd >= 1.00 AND city != 'Dallas' AND city != 'Duluth';
+ do it like this:
+  SELECT *
+  FROM products
+  WHERE city != 'Dallas' 
+    AND city != 'Duluth' 
+    AND priceUSD >= 1;
+
+
+
+3. List the pid, name, and priceUSD of products with quantity more than
+208,000.
+
+Incorrect output
+- You are giving an additional field, quantity, but you were not asked for it.
+
+
+5. List the names of agents not in New York and not in Tokyo.
+
+Incorrect output
+- You are asked to give the names only, not the city.
+
+
+9. List all orders from the customer whose cid is C005.
+
+Incorrect output
+- You are nor listing the orders, but customer info!
+
+
+In general: 
+
+- Test all your SQL statements.
+
+- Make sure you read all the instructions for queries really well.
+
+
+- Dr. Rivas
