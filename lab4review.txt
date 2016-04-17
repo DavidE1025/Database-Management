@@ -1,0 +1,45 @@
+8 pts
+
+Correct queries
+Correct SQL statements
+Correct output for some queries
+SQL statements are somewhat readable
+
+
+
+2. Get the ids of products ordered through any agent who takes at least one
+order from a customer in Dallas, sorted by pid from highest to lowest. (This is
+not the same as asking for ids of products ordered by customers in Dallas.)
+
+Incorrect output
+- the query is producing incorrect output because it is not taking agents into
+  account
+
+3. Get the ids and names of customers who did not place an order through agent
+a01.
+
+Incorrect output
+- You are giving an additional rows incorrectly.
+
+
+8. Tell me about check constraints: What are they? What are they good for? What
+is the advantage of putting that sort of thing inside the database? Make up
+some examples of good uses of check constraints and some examples of bad uses
+of check constraints. Explain the differences in your examples and argue your
+case.
+
+- You discussed constraints, but not "check constraints". There is a
+  difference. 
+
+
+In general: 
+
+- Please do not use tabs for indentation. Use spaces instead.
+
+- Test all your SQL statements.
+
+- Make sure you read all the instructions for queries really well.
+
+
+
+- Dr. Rivas
