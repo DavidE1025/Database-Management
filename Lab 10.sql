@@ -15,9 +15,12 @@ DECLARE
    resultset  REFCURSOR :=$2;
 BEGIN
   OPEN resultset FOR
-      SELECT preReqNum
-      FROM Prerequisites
-      WHERE courseNum = course_Num;
+      SELECT preReqNum, name
+      FROM Prerequisites p, courses c
+      WHERE courseNum = course_Num
+      AND num IN (SELECT num
+                  FROM courses c
+                  WHERE course_Num = num);
   RETURN resultset;
 END;
 $$
@@ -34,14 +37,19 @@ DECLARE
    resultset  REFCURSOR :=$2;
 BEGIN
   OPEN resultset FOR
-      SELECT courseNum
-      FROM Prerequisites
-      WHERE prereqNum = course_Num;
+      SELECT coursenum, name
+      FROM Prerequisites p, courses c
+      WHERE prereqNum = course_Num
+      AND  name IN (SELECT name
+                    FROM courses c
+                    WHERE num IN (SELECT coursenum
+                                  FROM Prerequisites p
+                                  WHERE prereqNum = course_Num));
   RETURN resultset;
 END;
 $$
 LANGUAGE plpgsql;
 
-SELECT IsPreReqFor(221, 'result');
+SELECT IsPreReqFor(220, 'result');
 FETCH ALL FROM result; 
       
