@@ -1,0 +1,51 @@
+9 pts
+
+Correct queries
+Correct SQL statements
+Correct output for some queries
+SQL statements are somewhat readable
+
+Recommendations: 
+ To improve your readability, write queries like this:
+  SELECT DISTINCT pid
+  FROM orders
+  WHERE aid IN (SELECT aid
+                FROM orders
+                WHERE cid IN (SELECT cid
+                              FROM customers
+                              WHERE city = 'Dallas'))
+  ORDER BY pid DESC;     -- < notice the correct indentation here
+
+
+7. Show the name and city of customers who live in the city that makes the 
+   fewest different kinds of products. (Hint: Use count and group by on 
+   the Products table.)
+
+select name, city
+from customers
+where city in (select city
+               from products
+               group by city
+               Order by count(name)
+               limit 1);
+
+Incorrect output
+- Missing customer cities.
+- This one could have been done without joins. 
+- You did not test this query, why?
+- It seems like you did not read the correct instructions for this query. Read
+  it again, please.
+
+
+
+In general: 
+
+- Test all your SQL statements.
+
+- Make sure you read all the instructions for queries really well.
+
+- PLEASE only include your queries! You included a lot of other things. 
+
+
+
+- Dr. Rivas
